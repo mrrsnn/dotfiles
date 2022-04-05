@@ -6,7 +6,7 @@ precmd() {
   vcs_info
 }
 setopt prompt_subst
-prompt='%F{blue}%1d [%*]%F{cyan}${vcs_info_msg_0_} $%f '
+prompt='%F{white}%1d [%*]%F{green}${vcs_info_msg_0_} $%f '
 
 # NVM
 export NVM_DIR="$HOME/.nvm"

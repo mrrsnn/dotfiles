@@ -23,23 +23,11 @@ llpids() {
 }
 
 lljson() {
-  echo 1 $1
-  echo 2 $2
-  echo all $@
   tree -J $1 | jq $2 '.'
-}
-
-ffgif() {
-   ffmpeg -y -ss 0:00 -i $1 -t 4 -filter_complex "fps=20,scale=-1:360:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=32[p];[s1][p]paletteuse=dither=bayer" /tmp/tmp.gif && gifsicle -O3 /tmp/tmp.gif -o $2
-   # or --> 
 }
 
 vgif() {
   ffmpeg -ss 0:00 -i $1 -t 4 -vf fps=20,scale=-1:360 $2
-}
-
-find-exports() {
-  find $1 | egrep '.js' | while read filename; do echo "\n\n###############  ${filename}  ###############\n\n" && (cat -n $filename | grep export) && echo "\n\n"; done
 }
 
 tu() {
@@ -64,15 +52,6 @@ shake-branches() {
     locals=$(git branch --no-color | grep -v main | tr -d ' ' | sort) &&
     dangling=($(comm -2 -3 <(echo $locals) <(echo $remotes))) &&
     if [[ "${#dangling[@]}" != "0" ]]  then git branch -D $dangling; fi
-
-}
-
-spawn () {
-  if [[ $# -eq 0 ]]; then
-    open -a "Terminal" "$PWD"
-  else
-    open -a "Terminal" "$@"
-  fi
 }
 
 fnd () {
@@ -90,17 +69,6 @@ alias ls="gls --color -hFA --group-directories-first"
 alias lsize="gls --color -ghAFS | awk '{printf \"%s\\t%s\n\", \$4, substr(\$0, index(\$0, \$8))}'"
 alias l="gls -gouhAFG --color --time-style=iso --sort=width --group-directories-first"
 alias ll="gls -aghuUF --color --time-style=long-iso --sort=width --group-directories-first | awk '{printf \"%s\\t%s  %s    %s\n\", \$4, \$5, \$6, substr(\$0, index(\$0, \$7))}' | tail +2"
-alias lf="fnd"
-alias ga="git a"
-alias gb="git b"
-alias gc="git c"
-alias gg="git g"
-alias gl="git l"
-alias gll="git ll"
-alias gm="git m"
-alias gp="git p"
-alias gs="git s"
-alias rmf="rm -rf"
 
 # variables
 export PATH=$PATH:/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/:/Applications/Atom.app/Contents/Resources/app/
@@ -114,7 +82,8 @@ export PNPM_HOME="/Users/nicholasmorrison/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
 # startup scripts
-greeting() {
+
+print_fortune_greeting() {
   cur_greeting_line=1
   greeting=$(fortune -s)
   greeting_length=$(echo $greeting | wc -l | tr -s ' ')
@@ -126,5 +95,20 @@ greeting() {
   echo "\n"
 }
 
-ls .git > /dev/null 2> /dev/null
-if [[ $? -gt 0 ]] then greeting; else onefetch; fi
+check_updates_on_fresh_start() {
+  if [[ $(pwd) == $(echo ~) ]]
+  then
+    brew outdated
+  fi
+}
+
+greetme() {
+  onefetch 2> /dev/null
+  if [[ $? -gt 0 ]]
+  then
+    print_fortune_greeting
+  fi
+}
+
+check_updates_on_fresh_start
+greetme

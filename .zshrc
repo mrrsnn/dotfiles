@@ -54,8 +54,12 @@ shake-branches() {
     if [[ "${#dangling[@]}" != "0" ]]  then git branch -D $dangling; fi
 }
 
-fnd () {
-  find $1 -not -path '*/.git/*' -not -path '*/node_modules/*' -not -path '*/.vscode/*' -not -path '*/.vercel/*' -not -path '*/.next/*'
+ff () {
+  find $1 -not -path '**/.**' -not -path '**node_modules**' 
+}
+
+ffa () {
+  find $1 -not -path '**node_modules**' 
 }
 
 # aliases
@@ -76,8 +80,6 @@ export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$NVM_DIR:$PATH"
 export LS_COLORS="$LS_COLORS:di=1;4;33"
-
-# pnpm
 export PNPM_HOME="/Users/nicholasmorrison/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 

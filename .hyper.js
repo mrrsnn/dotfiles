@@ -1,5 +1,4 @@
-// Future versions of Hyper may add additional config options,
-// which will not automatically be merged into this file.
+// Future versions of Hyper may add additional config options, // which will not automatically be merged into this file.
 // See https://hyper.is#cfg for all currently supported options.
 
 const COLORS = {
@@ -8,7 +7,8 @@ const COLORS = {
   green: "#598D60",
   yellow: "#D3820C",
   orange: "#F87760",
-  blue: "#3663B4",
+  brown: "#F5765F",
+  blue: "#5037EB", // "#3663B4",
   magenta: "#C839C5",
   cyan: "#519ABA",
   white: "#E7E7E7",
@@ -45,7 +45,7 @@ module.exports = {
     lineHeight: 1.1,
 
     // letter spacing as a relative unit
-    letterSpacing: 1,
+    letterSpacing: 0.4,
 
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
     cursorColor: COLORS.lightGreen,
@@ -155,7 +155,7 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: [],
+  plugins: ['hypercwd', 'hyper-dark-scrollbar', 'hyperline'],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here

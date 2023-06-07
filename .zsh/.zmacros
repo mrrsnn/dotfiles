@@ -1,0 +1,70 @@
+# macros
+ll() {
+  gls $1 -aghuUF --color --time-style=long-iso --sort=width --group-directories-first | awk '{printf "%s\t%s  %s    %s\n", $4, $5, $6, substr($0, index($0, $7))}' | tail +2
+}
+
+llpids() {
+  ps -u $(whoami) -m -f | grep -e "$1" | grep -v "grep" | awk '{print $2}' | tr '\n' '\ '
+}
+
+lljson() {
+  tree -J $1 | jq $2 '.'
+}
+
+jscripts() {
+  cat package.json | jq -s ".[0].scripts"
+}
+
+vgif() {
+  ffmpeg -ss 0:00 -i $1 -t 4 -vf fps=20,scale=-1:360 $2
+}
+
+ff () {
+  find $1 -not -path '**/.**' -not -path '**node_modules**' 
+}
+
+ffa () {
+  find $1 -not -path '**node_modules**' 
+}
+
+ggl() {
+    search=""
+    echo "Googling: $@"
+    for term in $@; do
+        search="$search%20$term"
+    done
+    open "https://www.google.com/search?q=$search"
+}
+
+yt() {
+    search=""
+    echo "Youtube searching: $@"
+    for term in $@; do
+        search="$search%20$term"
+    done
+    open "https://www.youtube.com/results?search_query=$search"
+}
+
+tu() {
+  tmux resize-pane -U $1
+}
+
+td() {
+  tmux resize-pane -D $1
+}
+
+shake-branches() {
+  read "REPLY?Have you pushed up all WIP branches to origin? (y/N): ";
+  REPLY=${REPLY:-y};
+  if [[ "$REPLY" != [yY] ]]; then
+    echo "Please push up those branches before pruning and shaking"
+    return 1;
+  fi
+  git checkout -q main &&
+    git fetch --prune -q &&
+    git remote prune origin &&
+    remotes=$(git branch -r --no-color | grep -v HEAD | sed 's/  origin\///g' | sort) &&
+    locals=$(git branch --no-color | grep -v main | tr -d ' ' | sort) &&
+    dangling=($(comm -2 -3 <(echo $locals) <(echo $remotes))) &&
+    if [[ "${#dangling[@]}" != "0" ]]  then git branch -D $dangling; fi
+}

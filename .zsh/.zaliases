@@ -1,0 +1,15 @@
+# aliases
+alias karen="say -v Karen"
+alias python="python3"
+alias profedit="vim ~/.zshrc && source ~/.zshrc"
+alias gpm="pnpm --global"
+alias pm="pnpm"
+alias ls="gls --color -hFA --group-directories-first"
+alias lsize="gls --color -ghAFS | awk '{printf \"%s\\t%s\n\", \$4, substr(\$0, index(\$0, \$8))}'"
+alias l="gls -gouhAFG --color --time-style=iso --sort=width --group-directories-first"
+alias gs="git status -s -b"
+alias gsw="git switch"
+alias gcr="git switch -c"
+alias gg="git log --oneline --graph --decorate -25"
+alias gl="git log --oneline --graph --decorate --stat -5"
+

@@ -1,0 +1,56 @@
+#!/bin/bash
+
+remote=$1
+branch=$(git branch --show-current)
+
+col_dim="\x1b[2m"
+col_bright="\x1b[1m"
+col_reset="\x1b[0m"
+
+prompt_main_color="\x1b[34m"
+prompt_purp="\x1b[45m"
+prompt_bg_gray="\x1b[100m"
+
+cmd_log_prompt="$col_bright$prompt_main_color\n\$\$"
+cmd_separator="$col_dim _______________________________________________________________________________ $col_reset\n"
+
+clean_unstaged() {
+  rm -rf .next storybook-static;
+  git stash --keep-index;
+}
+
+restore_unstaged() {
+  rm -rf .next storybook-static;
+  git stash pop;
+  pnpm install > /dev/null;
+}
+
+check_failure() {
+  if [[ $? -gt 0 ]]
+  then
+    restore_unstaged
+    exit 1
+  else
+    echo -e "$cmd_separator"
+  fi
+}
+
+run_main_branch_push_checks() {
+  if [[ $branch -eq "main" ]]
+  then
+    clean_unstaged;
+    echo $@;
+    echo -e "\n\n\t$col_bright$prompt_purp git (main branch) pre-push hook: $col_reset\n\n";
+  
+    echo -e "$cmd_log_prompt pnpm install$col_reset\n"; pnpm install; check_failure;
+    echo -e "$cmd_log_prompt pnpm books:build$col_reset\n"; pnpm books:build; check_failure;
+    echo -e "$cmd_log_prompt pnpm build$col_reset\n"; pnpm build; check_failure;
+  
+    restore_unstaged;
+    echo -e "\n\n\t$col_bright$prompt_purp Successfully pushed main branch to remote $remote $col_reset\n\n";
+    exit 0
+  fi
+}
+  
+run_main_branch_push_checks
+

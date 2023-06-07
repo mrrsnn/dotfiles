@@ -10,9 +10,15 @@ col_reset="\x1b[0m"
 cmd_log_prompt="$col_bright$prompt_main_color\n\$\$"
 cmd_separator="$col_dim _______________________________________________________________________________ $col_reset\n"
 
+restore_unstaged() {
+  git stash pop;
+  pnpm install;
+}
+
 check_failure() {
   if [[ $? -gt 0 ]]
   then
+    restore_unstaged
     exit 1
   else
     echo -e "$cmd_separator"
@@ -24,13 +30,9 @@ echo -e "$cmd_log_prompt pnpm install$col_reset\n";
 pnpm install; 
 check_failure;
 
-echo -e "$cmd_log_prompt pnpm books:build$col_reset\n";
-pnpm books:build;
+echo -e "$cmd_log_prompt pnpm lint$col_reset\n";
+pnpm lint;
 check_failure;
 
-echo -e "$cmd_log_prompt pnpm build$col_reset\n";
-pnpm build;
-check_failure;
+restore_unstaged
 
-git stash pop
-pnpm install

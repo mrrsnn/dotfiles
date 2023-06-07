@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # aliases
 alias karen="say -v Karen"
 alias python="python3"

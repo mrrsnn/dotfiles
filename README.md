@@ -1,1 +1,1 @@
-Just some helpful configuration files for local work setup
+Just some helpful shell scripts for local work setup

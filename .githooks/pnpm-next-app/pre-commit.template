@@ -11,7 +11,7 @@ cmd_log_prompt="$col_bright$prompt_main_color\n\$\$"
 cmd_separator="$col_dim _______________________________________________________________________________ $col_reset\n"
 
 restore_unstaged() {
-  git stash pop;
+  git stash pop > /dev/null;
   pnpm install;
 }
 
@@ -25,13 +25,14 @@ check_failure() {
   fi
 }
 
-git stash push --keep-index;
+git stash push --keep-index > /dev/null;
 echo -e "$cmd_log_prompt pnpm install$col_reset\n"; 
 pnpm install; 
 check_failure;
 
-echo -e "$cmd_log_prompt pnpm lint$col_reset\n";
-pnpm lint;
+echo -e "$cmd_log_prompt pnpm lint --fix$col_reset\n";
+pnpm lint --fix;
+git add .;
 check_failure;
 
 restore_unstaged

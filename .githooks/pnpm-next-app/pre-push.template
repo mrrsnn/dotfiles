@@ -16,7 +16,7 @@ cmd_separator="$col_dim ________________________________________________________
 
 clean_unstaged() {
   rm -rf .next storybook-static;
-  git stash --keep-index;
+  git stash --keep-index > /dev/null;
 }
 
 restore_unstaged() {
@@ -45,6 +45,7 @@ run_main_branch_push_checks() {
     echo -e "$cmd_log_prompt pnpm install$col_reset\n"; pnpm install; check_failure;
     echo -e "$cmd_log_prompt pnpm books:build$col_reset\n"; pnpm books:build; check_failure;
     echo -e "$cmd_log_prompt pnpm build$col_reset\n"; pnpm build; check_failure;
+    echo -e "$cmd_log_prompt pnpm test:ci$col_reset\n"; pnpm test:ci; check_failure;
   
     restore_unstaged;
     echo -e "\n\n\t$col_bright$prompt_purp Successfully pushed main branch to remote $remote $col_reset\n\n";

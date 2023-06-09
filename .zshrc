@@ -31,18 +31,27 @@ print_fortune_greeting() {
   cur_greeting_line=1
   greeting=$(fortune -s)
   greeting_length=$(echo $greeting | wc -l | tr -s ' ')
-  echo "\n"
+  echo "\n\n"
   echo "========================================================================================================================\n"
-  echo $greeting | while read line; do if [[ $cur_greeting_line -eq $greeting_length ]] then figlet -r -w 120 $(echo "$line"); else echo $line && ((cur_greeting_line++)); fi; done
+  echo $greeting | while read line; do if [[ $cur_greeting_line -eq $greeting_length ]] then figlet -f small -r -w 120 $(echo "$line"); else echo $line && ((cur_greeting_line++)); fi; done
   echo "\n"
   echo "========================================================================================================================\n"
   echo "\n"
 }
 
 check_updates_on_fresh_start() {
-  if [[ $(pwd) == $(echo ~) ]]
+  fullDayInSeconds=86468
+  lastDt=$(cat ~/.zsh/LAST_BREW_CHECK_DT)
+  curDt=$(date -j +"%s")
+
+  dayDiff=$(($curDt-$lastDt))
+
+
+  if [[ $dayDiff -gt $fullDayInSeconds && $(pwd) == $(echo ~) ]]
   then
+    brew doctor
     brew outdated
+    echo $curDt > ~/.zsh/LAST_BREW_CHECK_DT
   fi
 }
 
@@ -54,5 +63,6 @@ greetme() {
   fi
 }
 
-check_updates_on_fresh_start
 greetme
+check_updates_on_fresh_start
+

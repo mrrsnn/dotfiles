@@ -1,6 +1,6 @@
-[ -f ~/.zsh/.zaliases ] && source ~/.zsh/.zaliases
-[ -f ~/.zsh/.zcolors ] && source ~/.zsh/.zcolors
-[ -f ~/.zsh/.zmacros ] && source ~/.zsh/.zmacros
+[ -f ~/.zutils/.zaliases ] && source ~/.zutils/.zaliases
+[ -f ~/.zutils/.zcolors ] && source ~/.zutils/.zcolors
+[ -f ~/.zutils/.zmacros ] && source ~/.zutils/.zmacros
 
 # git prompt
 autoload -Uz vcs_info
@@ -20,6 +20,7 @@ export PATH="$NVM_DIR:$PATH"
 export LS_COLORS="$LS_COLORS:di=1;4;33"
 export PNPM_HOME="/Users/nicholasmorrison/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+export PATH="$PATH:/Users/nicholasmorrison/go/bin"
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
@@ -33,7 +34,7 @@ print_fortune_greeting() {
   greeting_length=$(echo $greeting | wc -l | tr -s ' ')
   echo "\n\n"
   echo "========================================================================================================================\n"
-  echo $greeting | while read line; do if [[ $cur_greeting_line -eq $greeting_length ]] then figlet -f small -r -w 120 $(echo "$line"); else echo $line && ((cur_greeting_line++)); fi; done
+  echo $greeting | while read line; do if [[ $cur_greeting_line -eq $greeting_length ]] then figlet -f small -r -w 128 $(echo "$line"); else echo $line && ((cur_greeting_line++)); fi; done
   echo "\n"
   echo "========================================================================================================================\n"
   echo "\n"
@@ -41,7 +42,7 @@ print_fortune_greeting() {
 
 check_updates_on_fresh_start() {
   fullDayInSeconds=86468
-  lastDt=$(cat ~/.zsh/LAST_BREW_CHECK_DT)
+  lastDt=$(cat ~/.zutils/LAST_BREW_CHECK_DT)
   curDt=$(date -j +"%s")
 
   dayDiff=$(($curDt-$lastDt))
@@ -51,18 +52,28 @@ check_updates_on_fresh_start() {
   then
     brew doctor
     brew outdated
-    echo $curDt > ~/.zsh/LAST_BREW_CHECK_DT
+    echo $curDt > ~/.zutils/LAST_BREW_CHECK_DT
   fi
 }
 
 greetme() {
-  onefetch 2> /dev/null
-  if [[ $? -gt 0 ]]
+  if [[ $(pwd) == $(echo ~) ]]
   then
     print_fortune_greeting
   fi
 }
 
 greetme
-check_updates_on_fresh_start
+# check_updates_on_fresh_start
 
+
+# bun completions
+[ -s "/Users/nicholasmorrison/.bun/_bun" ] && source "/Users/nicholasmorrison/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

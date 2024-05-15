@@ -1,8 +1,42 @@
-#!/bin/zsh
-
 # macros
+
+profile() {
+  if [[ $1 -eq "" ]]
+  then
+    vim ~/.zshrc && source ~/.zshrc
+  else
+    source $@
+  fi
+}
+
+restart() {
+  source ~/.zshrc
+}
+
+tt() {
+  if [[ $2 -gt 0 ]]
+  then
+    L=$2
+  else
+    L=2
+  fi
+  tree $@ --dirsfirst -F -L $L -I 'node_modules' -I '.next'
+}
+
+ls() {
+  gls $@ --color -hFA --group-directories-first
+}
+
 ll() {
-  gls $1 -aghuUF --color --time-style=long-iso --sort=width --group-directories-first | awk '{printf "%s\t%s  %s    %s\n", $4, $5, $6, substr($0, index($0, $7))}' | tail +2
+  gls $@ -ghoF --color --time-style=long-iso --group-directories-first 
+}
+
+la() {
+  ll $@ -a
+}
+
+lsizes() {
+  gls $@ --color -ghAFS | awk '{printf \"%s\\t%s\n\", \$4, substr(\$0, index(\$0, \$8))}'
 }
 
 llpids() {
@@ -29,22 +63,32 @@ ffa () {
   find $1 -not -path '**node_modules**' 
 }
 
-ggl() {
-    search=""
-    echo "Googling: $@"
+goto() {
+  destination=`find ~/dev -not -path "**/\.**" -not -path "**target**" -not -path "**build**" -not -path "**dist**" -not -path "**node_modules**" | fzf`
+  cd $destination
+}
+
+uriEncode() {
+    uriEncoded=""
     for term in $@; do
-        search="$search%20$term"
+        uriEncoded="$uriEncoded%20$term"
     done
+    echo "$uriEncoded"
+}
+
+ggl() {
+    search=$(uriEncode $@)
     open "https://www.google.com/search?q=$search"
 }
 
 yt() {
-    search=""
-    echo "Youtube searching: $@"
-    for term in $@; do
-        search="$search%20$term"
-    done
+    search=$(uriEncode $@)
     open "https://www.youtube.com/results?search_query=$search"
+}
+
+tweet() {
+  search=$(uriEncode $@)
+  open "https://twitter.com/intent/tweet?text=$search"
 }
 
 tu() {

@@ -1,0 +1,12 @@
+# aliases
+alias karen="say -v Karen"
+alias gpm="pnpm --global"
+alias pm="pnpm"
+alias gs="git status -s -b"
+alias gsw="git switch"
+alias gcr="git switch -c"
+alias gg="git log --oneline --graph --decorate -25"
+alias gl="git log --oneline --graph --decorate --stat -5"
+alias netspeed="speedtest-cli"
+alias tmux="tmux -2"
+

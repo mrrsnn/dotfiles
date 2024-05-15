@@ -1,5 +1,3 @@
-#!/bin/zsh
-
 # Color constants
 export ZCLR_RESET="\x1b[0m"
 export ZCLR_BRIGHT="\x1b[1m"

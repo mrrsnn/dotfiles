@@ -1,0 +1,17 @@
+# bsp, stack, or float
+yabai -m config layout bsp
+
+# new window vertically goes to the right, new window horizontally goes to the bottom
+yabai -m config window_placement second_child
+
+# padding
+yabai -m config top_padding 12
+yabai -m config bottom_padding 12
+yabai -m config left_padding 12
+yabai -m config right_padding 12
+yabai -m config window_gap 12
+
+# disable specific apps
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off
+

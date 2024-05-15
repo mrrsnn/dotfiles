@@ -1,0 +1,48 @@
+[core]
+  editor = vim
+[alias]
+  graph = log --oneline --graph --decorate --stat
+  check = status --long --show-stash --verbose -u all
+  upush = push -u origin head
+  a = add
+  b = switch -c
+  bl = branch --list
+  c = commit
+  cm = commit -m 
+  co = checkout
+  d = branch -D
+  g = log --oneline --graph --decorate -25
+  l = log --oneline --graph --decorate --stat
+  ll = log --oneline --decorate --stat
+  p = push -u origin head
+  s = status -s -b
+  st = stash
+  sw = switch
+[user]
+  name = Morrison
+  email = nj.mrrsn@gmail.com
+[pull]
+  rebase = true
+[color]
+  diff = always
+  status = always
+  branch = always
+  interactive = always
+  ui = true
+  pager = true
+[color "branch"]
+  current = brightgreen
+  remote = white bold
+[color "diff"]
+  meta = magenta bold
+  frag = brightred
+  new = brightgreen
+[color "status"]
+  added = brightgreen
+  changed = brightyellow
+  untracked = brightred
+  currentbranch = brightgreen
+  remotebranch = brightred
+ 
+[init]
+	defaultBranch = main

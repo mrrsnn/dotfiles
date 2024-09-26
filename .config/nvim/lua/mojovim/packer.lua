@@ -31,6 +31,10 @@ return require('packer').startup(function(use)
     "catppuccin/nvim",
     as = "catppuccin"
   }
+  use {
+    'Mofiqul/dracula.nvim',
+    as = 'dracula'
+  }
 
   -- Abstract Syntax Tree
   use {
@@ -63,6 +67,8 @@ return require('packer').startup(function(use)
       require("nvim-autopairs").setup {}
     end
   }
+  use { 'jose-elias-alvarez/null-ls.nvim' }
+  use { 'MunifTanjim/prettier.nvim' }
 
   -- Language Server Protocol setup
   use {

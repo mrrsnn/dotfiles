@@ -2,6 +2,7 @@ local lsp = require('lsp-zero')
 local lspconfig = require('lspconfig')
 local mason = require("mason")
 local mason_lspconfig = require('mason-lspconfig')
+local null_ls = require('null-ls')
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
@@ -32,7 +33,7 @@ lsp.on_attach(function(client, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -72,7 +73,7 @@ mason.setup({
 -- install commonly used LSPs and set them up with lspconfig.
 mason_lspconfig.setup({
   ensure_installed = {
-    'tsserver',
+    'ts_ls',
     'eslint',
     'tailwindcss',
     'html',
@@ -92,16 +93,16 @@ mason_lspconfig.setup({
     function(server_name)
       lspconfig[server_name].setup({})
     end,
-    eslint = function()
-      lspconfig.eslint.setup({
-        on_attach = function(_, bufnr)
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            command = "EslintFixAll",
-          })
-        end,
-      })
-    end
+    -- eslint = function()
+    --   lspconfig.eslint.setup({
+    --     on_attach = function(_, bufnr)
+    --       vim.api.nvim_create_autocmd("BufWritePre", {
+    --         buffer = bufnr,
+    --         command = "EslintFixAll",
+    --       })
+    --     end,
+    --   })
+    -- end
   }
 })
 
@@ -149,3 +150,37 @@ cmp.setup {
     { name = 'path' },
   },
 }
+
+-- NULL-LS SECTION START
+-- REMOVE THIS SECTION WHEN NULL-LS BECOMES A PROBLEM FROM BEING ARCHIVED
+local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+local event = "BufWritePre" -- or "BufWritePost"
+local async = event == "BufWritePost"
+
+null_ls.setup({
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.keymap.set("n", "<Leader>f", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+
+      -- format on save
+      vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+      vim.api.nvim_create_autocmd(event, {
+        buffer = bufnr,
+        group = group,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr, async = async })
+        end,
+        desc = "[lsp] format on save",
+      })
+    end
+
+    if client.supports_method("textDocument/rangeFormatting") then
+      vim.keymap.set("x", "<Leader>f", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+    end
+  end,
+})
+-- NULL-LS SECTION END

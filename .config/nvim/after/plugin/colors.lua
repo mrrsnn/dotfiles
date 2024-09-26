@@ -44,4 +44,4 @@ require('catppuccin').setup({
 })
 
 -- Set colorscheme after options
-vim.cmd('colorscheme catppuccin')
+vim.cmd('colorscheme rose-pine-moon')

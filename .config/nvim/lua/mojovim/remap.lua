@@ -13,7 +13,10 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', 'n', "nzzzv")
 vim.keymap.set('n', 'N', "Nzzzv")
---
+
+-- delete without yanking
+vim.keymap.set("x", "<leader>x", [["_dP]])
+
 -- Window resizing Keyamps
 vim.keymap.set('n', '<C-h>', ':vertical resize -5<cr>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-j>', ':resize +5<cr>', { noremap = true, silent = true })

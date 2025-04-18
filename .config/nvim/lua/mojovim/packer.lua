@@ -14,6 +14,24 @@ return require('packer').startup(function(use)
     requires = { { 'nvim-lua/plenary.nvim' } }
   }
 
+  use 'stevearc/dressing.nvim'
+  use 'nvim-lua/plenary.nvim'
+  use 'MunifTanjim/nui.nvim'
+
+  -- AI assistant
+  use 'HakonHarnes/img-clip.nvim'
+  use 'MeanderingProgrammer/render-markdown.nvim'
+  use {
+    'yetone/avante.nvim',
+    as = 'avante',
+    requires = {
+      'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
+      'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
+      'zbirenbaum/copilot.lua', -- for providers='copilot'
+    }
+  }
+
+
   -- Colorschemes
   use {
     'rose-pine/neovim',
@@ -35,6 +53,30 @@ return require('packer').startup(function(use)
     'Mofiqul/dracula.nvim',
     as = 'dracula'
   }
+  use {
+    'everviolet/nvim',
+    as = 'evergarden'
+  }
+  use {
+    'RomanAverin/charleston.nvim',
+    as = 'charleston'
+  }
+  use {
+    'vague2k/vague.nvim',
+    as = 'vague'
+  }
+  use {
+    'thesimonho/kanagawa-paper.nvim',
+    as = 'kanagawa-paper'
+  }
+  use {
+    'wadackel/vim-dogrun',
+    as = 'dogrun'
+  }
+  use {
+    'slugbyte/lackluster.nvim',
+    as = 'lackluster'
+  }
 
   -- Abstract Syntax Tree
   use {
@@ -51,6 +93,9 @@ return require('packer').startup(function(use)
       })
     end,
   }
+
+  use 'nvim-tree/nvim-web-devicons'
+  use { 'echasnovski/mini.icons', name = 'mini.icons' }
 
   -- Auto closing tags
   use 'm4xshen/autoclose.nvim'

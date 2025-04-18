@@ -59,3 +59,9 @@ vim.o.termguicolors = true
 
 vim.g.skip_keymap_overlap_check = true
 
+
+--- class @Avante
+
+-- ai assistant stuff
+vim.opt.virtualedit = "block" -- Ensure virtual text can render
+vim.diagnostic.config({ virtual_text = true }) -- Enable virtual text globally

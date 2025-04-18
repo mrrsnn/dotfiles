@@ -137,6 +137,7 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'avante '},
     { name = 'luasnip' },
     { name = 'path' },
   },

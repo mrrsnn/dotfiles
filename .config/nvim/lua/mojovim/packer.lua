@@ -14,24 +14,6 @@ return require('packer').startup(function(use)
     requires = { { 'nvim-lua/plenary.nvim' } }
   }
 
-  use 'stevearc/dressing.nvim'
-  use 'nvim-lua/plenary.nvim'
-  use 'MunifTanjim/nui.nvim'
-
-  -- AI assistant
-  use 'HakonHarnes/img-clip.nvim'
-  use 'MeanderingProgrammer/render-markdown.nvim'
-  use {
-    'yetone/avante.nvim',
-    as = 'avante',
-    requires = {
-      'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
-      'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
-      'zbirenbaum/copilot.lua', -- for providers='copilot'
-    }
-  }
-
-
   -- Colorschemes
   use {
     'rose-pine/neovim',
@@ -153,4 +135,24 @@ return require('packer').startup(function(use)
     'nvim-tree/nvim-tree.lua',
     requires = { 'nvim-tree/nvim-web-devicons' }
   }
+
+
+  -- Avante dependencies
+  use 'stevearc/dressing.nvim'
+  use 'nvim-lua/plenary.nvim'
+  use 'MunifTanjim/nui.nvim'
+  use 'MeanderingProgrammer/render-markdown.nvim'
+
+  use 'hrsh7th/nvim-cmp'
+  use 'HakonHarnes/img-clip.nvim'
+  use 'zbirenbaum/copilot.lua'
+
+  -- AI assistant
+  use {
+    'yetone/avante.nvim',
+    branch = 'main',
+    run = 'make',
+  }
+
+
 end)

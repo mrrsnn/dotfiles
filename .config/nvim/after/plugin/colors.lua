@@ -55,7 +55,18 @@ require('rose-pine').setup({
 
 require('catppuccin').setup({
   flavour = 'frappe', -- latte, frappe, macchiato, mocha
-  no_italic = true
+  no_italic = true,
+  dim_inactive = {
+    enabled = true, -- Enable dimming of inactive windows
+    shade = "dark", -- "dark" or "light" shade
+    percentage = 0.6, -- How much to dim (0 to 1; 0.15 is 15%)
+  },
+  integrations = {
+    cmp = true,
+    gitsigns = true,
+    nvimtree = true,
+    treesitter = true,
+  },
 })
 
 

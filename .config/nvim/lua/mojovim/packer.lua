@@ -94,8 +94,19 @@ return require('packer').startup(function(use)
       require("nvim-autopairs").setup {}
     end
   }
-  use { 'jose-elias-alvarez/null-ls.nvim' }
   use { 'MunifTanjim/prettier.nvim' }
+
+  -- cmp popups
+  use {
+    'hrsh7th/nvim-cmp',
+    requires = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-path',
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip',
+      'neovim/nvim-lspconfig',
+    },
+  }
 
   -- Language Server Protocol setup
   use {
@@ -110,6 +121,13 @@ return require('packer').startup(function(use)
       { 'L3MON4D3/LuaSnip' },
     }
   }
+  use {
+    "nvimtools/none-ls.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvimtools/none-ls-extras.nvim",
+    },
+  } 
 
   -- Additional Plugins
   use('theprimeagen/harpoon')
@@ -143,7 +161,6 @@ return require('packer').startup(function(use)
   use 'MunifTanjim/nui.nvim'
   use 'MeanderingProgrammer/render-markdown.nvim'
 
-  use 'hrsh7th/nvim-cmp'
   use 'HakonHarnes/img-clip.nvim'
   use 'zbirenbaum/copilot.lua'
 

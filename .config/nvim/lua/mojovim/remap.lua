@@ -24,7 +24,9 @@ vim.keymap.set('n', '<C-k>', ':resize -5<cr>', { noremap = true, silent = true }
 vim.keymap.set('n', '<C-l>', ':vertical resize +5<cr>', { noremap = true, silent = true })
 
 -- Formatting
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader>f", function()
+  require("conform").format({ async = true, lsp_fallback = true })
+end)
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })

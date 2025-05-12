@@ -26,8 +26,8 @@ lsp.on_attach(function(client, bufnr)
     -- Create a floating window with formatted content
     return vim.lsp.util.open_floating_preview(lines, "markdown", {
       border = "rounded", -- Use a rounded border for a nicer look
-      max_width = 80,    -- Limit the width of the hover window
-      focusable = false, -- Prevent focusing the hover window
+      max_width = 80,     -- Limit the width of the hover window
+      focusable = false,  -- Prevent focusing the hover window
     })
   end
 
@@ -162,12 +162,29 @@ cmp.setup {
     end, { 'i', 's' }),
     ['<Esc>'] = cmp.mapping.abort()
   },
-  sources = {
-    { name = 'nvim_lsp'},
-    { name = 'luasnip' },
-    { name = 'path' },
-  },
+  sources = cmp.config.sources({
+    {
+      { name = 'nvim_lsp' },
+      { name = 'luasnip' },
+      { name = 'path' },
+    }, {
+    { name = 'buffer' }
+  }
+  }),
 }
+
+vim.diagnostic.config({
+  -- update_in_insert = true,
+  float = {
+    focusable = false,
+    style = "minimal",
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = "",
+  },
+})
+
 
 -- NULL-LS SECTION START
 -- REMOVE THIS SECTION WHEN NULL-LS BECOMES A PROBLEM FROM BEING ARCHIVED

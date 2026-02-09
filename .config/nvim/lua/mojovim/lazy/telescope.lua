@@ -4,11 +4,24 @@ return {
   tag = "0.1.5",
 
   dependencies = {
-    "nvim-lua/plenary.nvim"
+    "nvim-lua/plenary.nvim",
+    'nvim-telescope/telescope-ui-select.nvim',
   },
 
   config = function()
-    require('telescope').setup({})
+    local telescope = require('telescope')
+    telescope.setup({
+      extensions = {
+        ['ui-select'] = {
+          require('telescope.themes').get_dropdown {
+            winlend = 10,
+            width = 0.5,
+            height = 0.4,
+          }
+        }
+      }
+    })
+    telescope.load_extension('ui-select')
 
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<letypescript-language-serverader>gf', builtin.git_files, { desc = '[G]it [F]iles' })

@@ -11,6 +11,7 @@ return {
 		"tpope/vim-fugitive",
 		config = function()
 			vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+            vim.keymap.set("n", "<leader>gb", "<CMD>Git blame<CR>")
 
 			local function float_commit()
 				local buf = vim.api.nvim_create_buf(false, true)

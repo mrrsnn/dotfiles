@@ -41,25 +41,31 @@ return {
         config = function()
             require("vesper").setup({
                 palette_overrides = {
-                    bg = '#1d1a1d', -- Your custom background color
+                    bg = '#1D1A1D', -- custom background color
                 },
                 overrides = {
-                    Visual = { bg = '#3f3f3f' },
-                    TreeSitterContext = { bg = '#2f2f2f' },
-                    TelescopePromptBorder = { fg = '#555555', bg = '#1d1a1d' },
-                    TelescopeResultsBorder = { fg = '#555555', bg = '#1d1a1d' },
-                    TelescopePreviewBorder = { fg = '#555555', bg = '#1d1a1d' },
+                    Visual                 = { bg = '#3f3f3f' },
+                    TreeSitterContext      = { bg = '#2f2f2f' },
+                    TelescopePromptBorder  = { fg = '#555555', bg = '#1D1A1D' },
+                    TelescopeResultsBorder = { fg = '#555555', bg = '#1D1A1D' },
+                    TelescopePreviewBorder = { fg = '#555555', bg = '#1D1A1D' },
 
                     -- Neotree text
-                    NeoTreeFileName = { fg = '#a9a9a9' },      -- Dark grey for file names
-                    NeoTreeDirectoryName = { fg = '#a9a9a9' }, -- Dark grey for directories
-                    NeoTreeDimText = { fg = '#444444' },       -- Even darker for dim text
-                    NeoTreeNormal = { bg = '#1d1a1d' },        -- Match your background if needed
-                    NeoTreeActive = { bg = '#1d1a1d' },
-
+                    NeoTreeFileName        = { fg = '#a9a9a9' }, -- Dark grey for file names
+                    NeoTreeDirectoryName   = { fg = '#a9a9a9' }, -- Dark grey for directories
+                    NeoTreeDimText         = { fg = '#444444' }, -- Even darker for dim text
+                    NeoTreeNormal          = { bg = '#1d1a1d' }, -- Match your background if needed
+                    NeoTreeActive          = { bg = '#1d1a1d' },
                     -- Neotree icons
-                    NeoTreeFileIcon = { fg = '#FFCFA8' },      -- Dark grey for file icons
-                    NeoTreeDirectoryIcon = { fg = '#FFCFA8' }, -- Dark grey for folder icons
+                    NeoTreeFileIcon        = { fg = '#FFCFA8' }, -- Dark grey for file icons
+                    NeoTreeDirectoryIcon   = { fg = '#FFCFA8' }, -- Dark grey for folder icons
+
+                    -- Minifiles icons
+                    MiniFilesDirectory     = { fg = '#FFCFA8' }, -- directory name text
+                    MiniFilesNormal        = { bg = '#262326' }, -- general background/foreground
+                    MiniFilesBorder        = { fg = '#555555', bg = '#262326' }, -- border
+                    MiniFilesTitle         = { fg = '#FFCFA8', bg = '#1D1A1D' }, -- title text
+                    MiniFilesTitleFocused  = { fg = '#FFCFA8', bg = '#1D1A1D' }, -- title text
                 }
             })
         end

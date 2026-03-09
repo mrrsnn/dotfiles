@@ -66,6 +66,22 @@ return {
                     MiniFilesBorder        = { fg = '#555555', bg = '#262326' }, -- border
                     MiniFilesTitle         = { fg = '#FFCFA8', bg = '#1D1A1D' }, -- title text
                     MiniFilesTitleFocused  = { fg = '#FFCFA8', bg = '#1D1A1D' }, -- title text
+
+                    -- Diff highlights (for :Gdiffsplit side-by-side view)
+                    DiffAdd                = { bg = '#1a2e1a' }, -- green tint bg
+                    DiffDelete             = { bg = '#2e1a1a' }, -- red tint bg
+                    DiffChange             = { bg = '#2e2a1a' }, -- yellow tint bg
+                    DiffText               = { bg = '#3a3520', bold = true }, -- bold changed text
+
+                    -- Diff filetype highlights (for :Git diff output)
+                    diffAdded              = { fg = '#82d9c2' },
+                    diffRemoved            = { fg = '#ff8080' },
+                    diffChanged            = { fg = '#ffc799' },
+                    diffLine               = { fg = '#65737e' }, -- @@ line numbers
+                    diffFile               = { fg = '#FFCFA8', bold = true },
+                    diffIndexLine          = { fg = '#65737e' },
+                    diffOldFile            = { fg = '#ff8080' },
+                    diffNewFile            = { fg = '#82d9c2' },
                 }
             })
         end
